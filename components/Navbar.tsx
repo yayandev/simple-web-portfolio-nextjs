@@ -2,6 +2,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import PublicOnly from "./PublicOnly";
+import ClientOnly from "./ClientOnly";
+import MenuDropdown from "./MenuDropdown";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,30 +25,47 @@ const Navbar = () => {
         Yanz
       </Link>
       <div className="sm:flex gap-5 hidden">
-        <Link
-          href="/"
-          className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
-        >
-          Home
-        </Link>
-        <Link
-          href="/skills"
-          className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
-        >
-          Skills
-        </Link>
-        <Link
-          href="/portfolio"
-          className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
-        >
-          Portfolio
-        </Link>
-        <Link
-          href="/contact"
-          className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
-        >
-          Contact
-        </Link>
+        <PublicOnly>
+          <Link
+            href="/"
+            className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
+          >
+            Home
+          </Link>
+          <Link
+            href="/skills"
+            className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
+          >
+            Skills
+          </Link>
+          <Link
+            href="/portfolio"
+            className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
+          >
+            Portfolio
+          </Link>
+          <Link
+            href="/contact"
+            className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/sign-in"
+            className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
+          >
+            Login
+          </Link>
+        </PublicOnly>
+        <ClientOnly>
+          <Link
+            href="/home"
+            className="text-[#232323] font-semibold text-lg hover:border-b border-[#232323]"
+          >
+            Dashboard
+          </Link>
+          <MenuDropdown />
+        </ClientOnly>
       </div>
       <button
         onClick={handleClick}
@@ -76,30 +96,47 @@ const Navbar = () => {
           `${isOpen ? "flex" : "hidden"}`
         }
       >
-        <Link
-          href="/"
-          className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
-        >
-          Home
-        </Link>
-        <Link
-          href="/skills"
-          className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
-        >
-          Skills
-        </Link>
-        <Link
-          href="/portfolio"
-          className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
-        >
-          Portfolio
-        </Link>
-        <Link
-          href="/contact"
-          className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
-        >
-          Contact
-        </Link>
+        <ClientOnly>
+          <Link
+            href="/home"
+            className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
+          >
+            Dashboard
+          </Link>
+          <MenuDropdown />
+        </ClientOnly>
+        <PublicOnly>
+          <Link
+            href="/"
+            className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
+          >
+            Home
+          </Link>
+          <Link
+            href="/skills"
+            className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
+          >
+            Skills
+          </Link>
+          <Link
+            href="/portfolio"
+            className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
+          >
+            Portfolio
+          </Link>
+          <Link
+            href="/contact"
+            className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/sign-in"
+            className="text-[#232323] font-semibold text-lg border-b border-white hover:border-[#232323]"
+          >
+            Login
+          </Link>
+        </PublicOnly>
       </div>
     </nav>
   );
