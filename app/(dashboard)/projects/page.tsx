@@ -1,13 +1,13 @@
 "use client";
+import ProjectCard from "@/components/ProjectCard";
 import { fetcher } from "@/utils/fetcher";
-import Image from "next/image";
 import Link from "next/link";
 
-import { BsPlusCircle, BsTrashFill } from "react-icons/bs";
+import { BsPlusCircle } from "react-icons/bs";
 import useSWR from "swr";
 
 interface Project {
-  id: number;
+  id: string;
   name: string;
   image: string;
   description: string;
@@ -15,8 +15,10 @@ interface Project {
   linkCode: string;
 }
 
-const PageProjects = async () => {
-  const { data, error, isLoading } = useSWR("/api/projects", fetcher);
+const PageProjects = () => {
+  const { data, error, isLoading, mutate } = useSWR("/api/projects", fetcher, {
+    revalidateOnFocus: false,
+  });
 
   if (error) return <h1>failed to load</h1>;
   if (isLoading) return <h1>Loading...</h1>;
@@ -33,13 +35,7 @@ const PageProjects = async () => {
       </Link>
       <div className="w-full flex flex-wrap gap-3 justify-start">
         {data?.projects?.map((project: Project) => (
-          <div className="w-72 border p-3 space-y-2" key={project.id}>
-            <Image src={project.image} width={250} height={250} alt="Project" />
-            <h1 className="font-semibold">{project.name}</h1>
-            <button className="p-2 rounded bg-red-600 text-white">
-              <BsTrashFill />
-            </button>
-          </div>
+          <ProjectCard project={project} key={project.id} mutate={mutate} />
         ))}
       </div>
     </section>
