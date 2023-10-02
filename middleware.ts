@@ -7,4 +7,8 @@ export function mainMiddleware(req: NextRequest) {
   return res;
 }
 
-export default withAuth(mainMiddleware, ["/home"]);
+export default withAuth(mainMiddleware, [
+  "/home",
+  "/projects",
+  "/add-projects",
+]);

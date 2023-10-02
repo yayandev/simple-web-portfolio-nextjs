@@ -4,6 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { FaBoxes, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -49,15 +50,15 @@ const MenuDropdown = () => {
 
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <Link
+                  href="/projects"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "flex items-center gap-2 px-4 py-2 text-sm"
                   )}
                 >
                   <FaBoxes /> Projects
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <form method="POST" action="#">

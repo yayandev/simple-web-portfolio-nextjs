@@ -26,6 +26,8 @@ model project {
       description String
       image     String
       idImage   String
+      linkDemo String
+      linkCode String
       author   User      @relation(fields: [authorId], references: [id])
       authorId String    @db.ObjectId
       createdAt DateTime @default(now())
