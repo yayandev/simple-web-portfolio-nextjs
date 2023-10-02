@@ -1,18 +1,10 @@
-import axios from "axios";
-import { Metadata } from "next";
+"use client";
+import { fetcher } from "@/utils/fetcher";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Projects",
-};
-
 import { BsPlusCircle, BsTrashFill } from "react-icons/bs";
-
-const getProjects = async () => {
-  const res = await axios.get(`${process.env.DOMAIN}/api/projects`);
-  return res.data.projects;
-};
+import useSWR from "swr";
 
 interface Project {
   id: number;
@@ -24,7 +16,11 @@ interface Project {
 }
 
 const PageProjects = async () => {
-  const projects = await getProjects();
+  const { data, error, isLoading } = useSWR("/api/projects", fetcher);
+
+  if (error) return <h1>failed to load</h1>;
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <section className="space-y-3 my-3 w-full border p-3">
       <Link
@@ -36,7 +32,7 @@ const PageProjects = async () => {
         </div>
       </Link>
       <div className="w-full flex flex-wrap gap-3 justify-start">
-        {projects?.map((project: Project) => (
+        {data?.projects?.map((project: Project) => (
           <div className="w-72 border p-3 space-y-2" key={project.id}>
             <Image src={project.image} width={250} height={250} alt="Project" />
             <h1 className="font-semibold">{project.name}</h1>
